@@ -1,0 +1,43 @@
+/* ------------------navbar-styles----------------------- */
+.rightAlign{
+  position: absolute;
+  right: 0;
+}
+.navItem-Size{
+  width: 20%;
+  height: 20%;
+}
+nav{
+}
+
+/* ------------------post-styles----------------------- */
+img{
+  margin: 50px 40px 50px 0;
+}
+p{
+  margin: 50px 0 50px 0;
+}
+footer{
+  position:absolute;
+  bottom: 0;
+  left:0;
+  right:0;
+  margin:auto;
+  text-align: center;
+  background-color: 	#808080;
+}
+.layer1{
+  background-color: 	#808080;
+  float: left;
+}
+.layer2{
+  background-color: #DCDCDC;
+}
+/* ------------------loginPage-styles----------------------- */
+.center{
+  position: absolute;
+  left:0;
+  right:0;
+  top: 20%;
+  margin: auto;
+}
