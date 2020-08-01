@@ -2,14 +2,40 @@
 <% var message = logginMessage %>
 <%- include('partials/navbar',{logginMessage:message}); -%>
 <%# ---------------------------About this page------------------------------ %>
-<div class="layer1">
-  <img style= "float: left"src=<%=imgSrc%> alt="oops... Nothing loaded">
-  <p><%=about%></p>
+<div class="page-container">
+  <div class="layer1">
+    <img style= "float: left"src=<%=imgSrc%> alt="oops... Nothing loaded">
+    <p><%=about%></p>
+  </div>
+  <%for(var i = 0; i < posts.length;++i) {%>
+    <div class="layer1">
+      <img style= "float: left"src=<%=posts[i].postImage%> alt="oops... Nothing loaded">
+      <h1> <%=posts[i].postTitle%> </h1>
+      <p> <%=posts[i].postBody%> </p>
+    </div>
+  <%}%>
+  <div class="layer2">
+    <img style= "float: left"src=<%=imgSrc%> alt="oops... Nothing loaded">
+    <p><%=about%></p>
+  </div>
+  <% if(accessLevel === "admin"){ %>
+  <% let endpoint = "/" + postType%>
+  <div class="footer-class">
+    <div class="form-post">
+      <form action= <% endpoint %> method="post">
+        <label for="postTitle">Title</label>
+        <input type="text" name="postTitle">
+        <label for="postBody">Body</label>
+        <input type="text" name="postBody">
+        <label for="postImage">Image</label>
+        <input type="text" name="image">
+      </form>
+    </div>
+      <%- include('partials/footer'); -%>
+  <% } else{ %>
+    <div class="footer-class">
+      <%- include('partials/footer'); -%>
+    </div>
+  <% } %>
+  </div>
 </div>
-
-
-
-
-
-
-<%- include('partials/footer'); -%>

@@ -1,3 +1,11 @@
+body {
+ height: 100%;
+ position: relative;
+}
+html{
+  height: 100%;
+  position: relative;
+}
 /* ------------------navbar-styles----------------------- */
 .rightAlign{
   position: absolute;
@@ -7,8 +15,8 @@
   width: 20%;
   height: 20%;
 }
-nav{
-}
+.dropdown-menu {display: block;visibility: hidden;opacity:0;transform: translateY(50px);transition:.5s ease all;}
+.dropdown-menu.show {display: block;visibility: visible;opacity:1;transform: translateY(0px);transition:.5s ease all;}
 
 /* ------------------post-styles----------------------- */
 img{
@@ -17,21 +25,34 @@ img{
 p{
   margin: 50px 0 50px 0;
 }
-footer{
+.page-container {
+ min-height: 100vh; /* will cover the 100% of viewport */
+ overflow: hidden;
+ display: block;
+ position: relative;
+}
+
+.layer1{
+  background-color: 		#AFEEEE;
+  float: left;
+}
+.layer2{
+  background-color: #48D1CC;
+  float: left;
+}
+/* <---------------------footer-styles----------------> */
+.footer-class{
   position:absolute;
   bottom: 0;
   left:0;
   right:0;
   margin:auto;
   text-align: center;
-  background-color: 	#808080;
+  background-color: 	#40E0D0;
 }
-.layer1{
-  background-color: 	#808080;
-  float: left;
-}
-.layer2{
-  background-color: #DCDCDC;
+.form-post{
+  display: block;
+  text-align: center;
 }
 /* ------------------loginPage-styles----------------------- */
 .center{

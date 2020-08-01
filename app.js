@@ -15,7 +15,9 @@ mongoose.connect("mongodb://localhost:27017/gleema-blogDB", {useNewUrlParser: tr
 const aboutString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus aliquam. In metus vulputate eu scelerisque felis. Pulvinar pellentesque habitant morbi tristique senectus et. Fames ac turpis egestas integer eget aliquet nibh praesent. Mattis nunc sed blandit libero volutpat sed cras. Sagittis nisl rhoncus mattis rhoncus. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus aliquam. In metus vulputate eu scelerisque felis. Pulvinar pellentesque habitant morbi tristique senectus et. Fames ac turpis egestas integer eget aliquet nibh praesent. Mattis nunc sed blandit libero volutpat sed cras. Sagittis nisl rhoncus mattis rhoncus. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus aliquam. In metus vulputate eu scelerisque felis. Pulvinar pellentesque habitant morbi tristique senectus et. Fames ac turpis egestas integer eget aliquet nibh praesent. Mattis nunc sed blandit libero volutpat sed cras. Sagittis nisl rhoncus mattis rhoncus. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus aliquam. In metus vulputate eu scelerisque felis. Pulvinar pellentesque habitant morbi tristique senectus et. Fames ac turpis egestas integer eget aliquet nibh praesent. Mattis nunc sed blandit libero volutpat sed cras. Sagittis nisl rhoncus mattis rhoncus. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna."
 const blogSchema = new mongoose.Schema({
     postTitle: String,
-    postBody: String
+    postImage: String,
+    postBody: String,
+    postType: String
 });
 const adminSchema = new mongoose.Schema({
   username: String,
@@ -28,28 +30,34 @@ let user = {
   accessType: String
 };
 app.get("/",function(req, res){
+  let message = "";
   if(req.cookies.userData !== undefined && req.cookies.userData.accessType === "admin"){
-    res.render("home",{logginMessage: "Logged in as Admin"});
+    message = "Logged in as Admin";
   }
-  else{
-  res.render("home",{logginMessage: ""});
-  }
+  res.render("home",{logginMessage: message});
 });
 app.get("/:type",function(req,res){
-  console.log(util.inspect(req.cookies, false, null));
+  let message = "";
+  let accessType = "entry";
   if(req.params.type !== "admin"){
     if(req.cookies.userData !== undefined && req.cookies.userData.accessType === "admin"){
-      res.render("post",{imgSrc: "images/Gleema_Generic.jpg",about:aboutString,logginMessage:"Logged in as Admin"});
+        accessType = req.cookies.userData.accessType;
+        message = "Logged in as Admin"
       }
-    else{
-      res.render("post",{imgSrc: "images/Gleema_Generic.jpg",about:aboutString,logginMessage:""});
-    }
+      Posts.find({postType: req.params.type},function(err, results){
+        if(err){
+          console.log(err);
+        }
+        else{
+          res.render("post",{imgSrc: "images/Gleema_Generic.jpg",about:aboutString,logginMessage:message,posts:results,postType: req.params.type,accessLevel: accessType});
+        }
+      });
 }
 else{
   res.render("loginPage");
 }
 });
-app.post("/admin",function(req, res){
+app.post("/:type",function(req, res){
   // ------------------this part registers users-----------------
   // bcrypt.hash(req.body.password,saltRounds,function(err, hash){
   //   const newAdmin = new Admin({
@@ -66,6 +74,7 @@ app.post("/admin",function(req, res){
   //   });
   // });
   //-----------------this part logs in users------------------------
+  if(req.params.type === "admin"){
   if(req.cookies.userData === undefined || req.cookies.userData.accessType !== "admin"){
   Admin.findOne({username: req.body.username},function(err, result){
     if(err){
@@ -92,6 +101,10 @@ app.post("/admin",function(req, res){
 else{
   res.redirect("/");
 };
+}
+else{
+  // create posts here based on the type
+}
 });
 
 
