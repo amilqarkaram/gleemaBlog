@@ -2,33 +2,56 @@
 <% var message = logginMessage %>
 <%- include('partials/navbar',{logginMessage:message}); -%>
 <%# ---------------------------About this page------------------------------ %>
-<div class="page-container">
-  <div class="layer1">
-    <img style= "float: left"src=<%=imgSrc%> alt="oops... Nothing loaded">
-    <p><%=about%></p>
+<div class="page-container layer1">
+  <div class="postBox">
+    <img class="postImage"src="images/ss" alt="oops... Nothing loaded">
+    <hr><h1>Hello, My Name is Gleema</h1><hr>
+    <p style="text-align: left">🕞 August 1, 2020</p>
+    <p> <%= about.substring(0,300) + "..." %> </p>
+    <hr style="width: 50px"><a href="/">Read more</a><hr style="width: 50px;">
+    <!-- <p><%=about%></p> -->
   </div>
   <%for(var i = 0; i < posts.length;++i) {%>
-    <div class="layer1">
-      <img style= "float: left"src=<%=posts[i].postImage%> alt="oops... Nothing loaded">
-      <h1> <%=posts[i].postTitle%> </h1>
-      <p> <%=posts[i].postBody%> </p>
+    <div class="postBox">
+      <img src="data:image/png;base64,<%=imgSrc%>" alt="alternate image">
+      <hr><h1><%=posts[i].postTitle%></h1><hr>
+      <p style="text-align: left">🕞 <%=posts[i].postDate%></p>
+      <p> <%posts[i].postBody.substring(0,300) + "..." %> </p>
+      <hr style="width: 50px"><a href="/">Read more</a><hr style="width: 50px;">
+      <!-- <p><%=about%></p> -->
     </div>
   <%}%>
-  <div class="layer2">
-    <img style= "float: left"src=<%=imgSrc%> alt="oops... Nothing loaded">
-    <p><%=about%></p>
-  </div>
   <% if(accessLevel === "admin"){ %>
-  <% let endpoint = "/" + postType%>
+  <% console.log(postPath) %>
   <div class="footer-class">
     <div class="form-post">
-      <form action= <% endpoint %> method="post">
-        <label for="postTitle">Title</label>
-        <input type="text" name="postTitle">
-        <label for="postBody">Body</label>
-        <input type="text" name="postBody">
-        <label for="postImage">Image</label>
-        <input type="text" name="image">
+      <form action= <%=postPath%> method="Post" enctype="multipart/form-data">
+        <div class="form-row">
+          <div style="text-align:left;" class="form-group col-md-8">
+            <label for="postTitle">Title</label>
+            <textarea class="form-control" name="postTitle" cols="100" rows="1" placeholder="Secrets to Finding Great Music"></textarea>
+          </div>
+          <div style="text-align:left;" class="form-group col-md-4">
+            <label for="postDate">Date</label>
+            <textarea class="form-control" name="postDate" cols="40" rows="1" placeholder="August 1, 2020"></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div style="text-align:left;" class="form-group col-md-12">
+            <label for="postBody">Post</label>
+            <textarea placeholder="Write some content here"class="form-control" name="postBody" cols="160" rows="5"></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div style="text-align:left;" class="form-group col">
+            <input type="file" name="testImage" accept="image/*">
+          </div>
+        </div>
+        <div class="form-row">
+          <div style="text-align:left;" class="form-group col">
+            <button class="btn btn-primary" type="submit" name="button">Publish</button>
+          </div>
+        </div>
       </form>
     </div>
       <%- include('partials/footer'); -%>

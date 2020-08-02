@@ -19,11 +19,32 @@ html{
 .dropdown-menu.show {display: block;visibility: visible;opacity:1;transform: translateY(0px);transition:.5s ease all;}
 
 /* ------------------post-styles----------------------- */
-img{
+/* img{
   margin: 50px 40px 50px 0;
+} */
+a{
+  color: #AFEEEE;
 }
 p{
   margin: 50px 0 50px 0;
+}
+.postImage{
+  max-width:60%;
+  margin-bottom: 10%;
+  margin-top: 10%;
+}
+.postBox{
+  display: block;
+  max-width: 50%;
+  min-width: 30%;
+  text-align: center;
+  margin: auto;
+  margin-top: 10%;
+  margin-bottom: 50%;
+  padding-bottom: 2.5%;
+  padding-right: 2.5%;
+  padding-left: 2.5%;
+  background-color: white;
 }
 .page-container {
  min-height: 100vh; /* will cover the 100% of viewport */
@@ -34,11 +55,9 @@ p{
 
 .layer1{
   background-color: 		#AFEEEE;
-  float: left;
 }
 .layer2{
   background-color: #48D1CC;
-  float: left;
 }
 /* <---------------------footer-styles----------------> */
 .footer-class{
@@ -47,12 +66,18 @@ p{
   left:0;
   right:0;
   margin:auto;
+  margin-top:500px;
+  float:right;
   text-align: center;
   background-color: 	#40E0D0;
 }
 .form-post{
   display: block;
   text-align: center;
+  margin: 5%;
+}
+.post-body{
+  position: absolute;
 }
 /* ------------------loginPage-styles----------------------- */
 .center{
